@@ -3,6 +3,10 @@ body, div, header {
   padding: 0;
 }
 
+h1, h2 {
+  font-family: 'Arvo', serif;
+}
+
 .content {
   margin: 1em auto;
   max-width: 1300px;
@@ -23,10 +27,6 @@ body, div, header {
   display: block;
   padding: 10px;
   overflow-x: scroll;
-}
-
-h1, h2 {
-  font-family: 'Arvo', serif;
 }
 
 .hidden {
