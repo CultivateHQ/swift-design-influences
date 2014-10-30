@@ -81,13 +81,13 @@ p.y // => 2
 // Inheritance and interface implementation syntax
 class A {
   // A method that returns a number
-  def f = 1
+  def f() = 1
 }
 
 
 
 class B extends A {
-  override def f = 2
+  override def f() = 2
 }
 
 
@@ -95,8 +95,8 @@ class B extends A {
 val a = new A
 val b = new B
 
-a.f // => 1
-b.f // => 2
+a.f() // => 1
+b.f() // => 2
 
 // ----------------------------------------------------------------------------
 // Data structures

@@ -128,7 +128,7 @@ lookup["n"] // => Int? = nil
 
 func map<T, U>(var array: [T], f:(T) -> U) -> [U] {
   for i in 0 ..< array.count {
-    array[i] = f(array[i])
+    array[i] = f(array[i]) // array is a copy so is safe to modify in-place
   }
 
   return array
