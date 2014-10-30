@@ -25,12 +25,6 @@ def f(x: Int): Int = {
   x + 1
 }
 
-// Mapping a function over a collection
-(1 to 5).map { _ + 1 }
-
-
-
-
 // Multiple return values
 def g(x: Int) = {
   (x, x+1)
@@ -39,6 +33,33 @@ def g(x: Int) = {
 // Unpacking multiple return values
 val (x1, y1) = g(10)
 
+// A function that returns a function closure
+def makeFunc(value: Int): Int => Int = {
+  (otherValue: Int) => otherValue + value
+}
+
+makeFunc(2)(1) // => 3
+
+
+
+// Passing a function to a function
+def callFunc(value: Int, f: Int => Int): Int = {
+  return f(value)
+}
+
+// Passing functions in-place
+callFunc(1, (number: Int) => number + 2)
+callFunc(1, number => number + 2)
+callFunc(1, { _ + 2 })
+callFunc(1, _ + 2)
+
+// Pass a function as a block (need to define receiver differently)
+def callBlock(value: Int)(f: Int => Int): Int = {
+  return f(value)
+}
+
+callBlock(1)(_ + 2)
+callBlock(1) { _ + 2 }
 
 // ----------------------------------------------------------------------------
 // Classes
@@ -77,20 +98,19 @@ val b = new B
 a.f // => 1
 b.f // => 2
 
-
-
-
 // ----------------------------------------------------------------------------
 // Data structures
 
-// In Scala Lists are preferred over Arrays (although the latter type is
-// available)
+// In Scala Lists are preferred over Arrays (although they are available)
 val shoppingList = List("Eggs", "Milk")
 
 // Iteration
 for (item <- shoppingList) {
   println(item)
 }
+
+// Mapping a function over a collection
+(1 to 5).map { _ + 1 } // Terse inplace function syntax
 
 // Tuples
 val things = ("Some numbers", 1, 2, 3)
@@ -109,13 +129,6 @@ lookup.get("n") // => Option[Int] = None
 def map[T, U](list: List[T], f: T => U): List[U] = {
   for (v <- list) yield f(v)
 }
-
-
-
-
-
-
-
 
 
 

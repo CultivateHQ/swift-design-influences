@@ -25,13 +25,6 @@ func f(x int) int {
   return x + 1
 }
 
-// Mapping a function over a collection
-array := []int { 1, 2, 3, 4, 5 }
-f := func(x int) int { return x + 1 }
-for i, v := range array {
-  array[i] = f(v) // Modifies original array!!
-}
-
 // Multiple return values
 func g(x int) (int, int) {
   return x, x+1
@@ -40,45 +33,70 @@ func g(x int) (int, int) {
 // Unpacking multiple return values
 x1, y1 := g(10)
 
+// A function that returns a function closure
+func makeFunc(value int) func(int) int {
+  return func(otherValue int) int {
+    return otherValue + value
+  }
+}
+
+makeFunc(2)(1) // => 3
+
+// Passing a function to a function
+func callFunc(value int, f func(int) int) int {
+  return f(value)
+}
+
+// Passing functions in-place
+callFunc(1, func(number int) int { return number + 2 }) // => 3
+
+
+
+
+// Pass a function as a block
+// Not a feature of Go
+
+
+
+
+
+
 // ----------------------------------------------------------------------------
-// Classes (structures in Go, not classes)
+// Classes
 
-type Point struct {
-  X int // Upper case makes the variable public
-  Y int
-}
-
-p := Point{1, 2}
-p.X // => 1
-p.Y // => 2
+// Go uses a completely different model for objects based on structures. This
+// is sufficiently different that it is not likely to have been an influence on
+// Swift. For more info on Go structures see: http://tour.golang.org/#26
 
 
 
 
 
 
-// Embedding and overridding
-type A struct {}
 
-// A method that returns a number
-func (a *A) F() int {
-  return 1
-}
 
-type B struct {
-  *A // Embed A, just to show how overriding would work
-}
 
-// A method that returns a number
-func (b *B) F() int {
-  return 2
-}
 
-var a = &A{}
-var b = &B{}
 
-a.F() // => 1
-b.F() // => 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ----------------------------------------------------------------------------
 // Data structures
@@ -91,6 +109,9 @@ for _, item := range shoppingList {
     fmt.Println(item)
 }
 
+// Mapping a function over a collection
+// Go doesn't support map/reduce etc, so iterate and apply using a for loop
+
 // Tuples
 // Go doesn't have tuples
 
@@ -102,21 +123,13 @@ lookup := map[string]int{ "x": 24, "y": 25, "z": 26 }
 x, xIsPresent := lookup["x"] // => 24, true
 n, nIsPresent := lookup["n"] // => 0, false
 
-
 // ----------------------------------------------------------------------------
 // Generics
 
-// Go doesn't have generics. Deliberately: http://golang.org/doc/faq#generics
-type IntToFloat64 func(int) float64
-type IntToInt func(int) int
+// Go doesn't have generics at the moment (http://golang.org/doc/faq#generics)
 
-// ... and so on for each combination of types
 
-func MapIntToFloat64(sequence []int, f IntToFloat64) []float64 {
-  var result := make([]float64, len(sequence))
-  for index, value := range sequence {
-    result[index] = f(value)
-  }
-}
 
-// ... and so on for each combination of types
+
+
+
