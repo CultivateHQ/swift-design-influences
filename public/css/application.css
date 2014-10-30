@@ -1,14 +1,22 @@
-body {
+body, div, header {
   margin: 0;
   padding: 0;
 }
-.diff {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+
+.content {
+  margin: 1em auto;
+  max-width: 1300px;
 }
-.diff > div {
-  margin: 0 10px;
+
+.code-listing {
+  float: left;
+  max-width: 48%; /* fallback for browsers that don't support calc */
+  max-width: calc(50% - 5px);
+  margin-left: 10px;
+}
+
+.code-listing:first-child {
+  margin-left: 0;
 }
 
 .highlight {
