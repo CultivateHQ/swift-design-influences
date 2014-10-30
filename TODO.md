@@ -6,5 +6,5 @@
 [x] Move the map a function over to the data structure section
 [x] Get rid of the class bit in Go, no really comparable
 
-[ ] Disable the Go toggle
+[x] Disable the Go toggle
 [ ] Write the introductory blog post
