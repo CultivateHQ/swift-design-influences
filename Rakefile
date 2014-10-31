@@ -57,12 +57,12 @@ task :server do |t|
 end
 
 desc "Process and output the project to the #{BUILD_DIR} folder"
-task :dist => BUILT_FILES do
+task :build => BUILT_FILES do
   puts "Built."
 end
 
-desc "Runs dist"
-task :default => :dist
+desc "Runs build"
+task :default => :build
 
 desc "Print out project paths and other info"
 task :info do
