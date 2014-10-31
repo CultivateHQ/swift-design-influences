@@ -1,0 +1,301 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Basic Comparison of Swift with Scala</title>
+    <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" media="all" href="css/theme.css">
+    <link rel="stylesheet" type="text/css" media="all" href="css/application.css">
+  </head>
+  <body>
+
+    <div class="content">
+      <header>
+        <h1>Basic Comparison of Swift with Scala</h1>
+      </header>
+
+      <section>
+        <div class="code-listing">
+          <h2>Swift</h2>
+          <pre><code class="highlight"><span class="c1">//
+// Swift
+//
+</span>
+<span class="c1">// ----------------------------------------------------------------------------
+// Variables
+</span>
+<span class="c1">// A type inferred variable declaration
+</span><span class="k">var</span> <span class="nv">a</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1">// An explicitly typed variable declaration
+</span><span class="k">var</span> <span class="nv">a</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1">// A constant
+</span><span class="k">let</span> <span class="nv">b</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="c1">// An explicitly typed constant declaration
+</span><span class="k">let</span> <span class="nv">c</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">5.0</span>
+
+<span class="c1">// ----------------------------------------------------------------------------
+// Functions
+</span>
+<span class="c1">// A function that takes a value and returns a value
+</span><span class="kd">func</span> <span class="nf">f</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="c1">// Multiple return values
+</span><span class="kd">func</span> <span class="nf">g</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Unpacking multiple return values
+</span><span class="nf">let</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span> <span class="o">=</span> <span class="nf">g</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1">// A function that returns a function closure
+</span><span class="kd">func</span> <span class="nf">makeFunc</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span> <span class="p">(</span><span class="nv">otherValue</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="k">in</span>
+    <span class="k">return</span> <span class="n">otherValue</span> <span class="o">+</span> <span class="n">value</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nf">makeFunc</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// =&gt; 3
+</span>
+<span class="c1">// Passing a function to a function
+</span><span class="kd">func</span> <span class="nf">callFunc</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">f</span><span class="p">:</span> <span class="p">(</span><span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nf">f</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Passing functions in-place
+</span><span class="nf">callFunc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span> <span class="p">(</span><span class="nv">number</span><span class="p">:</span><span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="k">in</span> <span class="n">number</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">})</span> <span class="c1">// =&gt; 3
+</span><span class="nf">callFunc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">})</span> <span class="c1">// =&gt; 3
+</span>
+
+
+<span class="c1">// Pass a function as a block
+</span><span class="nf">callFunc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="n">number</span> <span class="k">in</span> <span class="n">number</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">}</span> <span class="c1">// =&gt; 3
+</span><span class="nf">callFunc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">}</span> <span class="c1">// =&gt; 3
+</span>
+
+
+
+
+<span class="c1">// ----------------------------------------------------------------------------
+// Classes
+</span>
+<span class="kd">class</span> <span class="kt">Point</span> <span class="p">{</span>
+  <span class="k">let</span> <span class="nv">x</span><span class="p">:</span> <span class="kt">Int</span>
+  <span class="k">let</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Int</span>
+
+  <span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">p</span> <span class="o">=</span> <span class="kt">Point</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="c1">// =&gt; 1
+</span><span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="c1">// =&gt; 2
+</span>
+<span class="c1">// Inheriting and overriding
+</span><span class="kd">class</span> <span class="kt">A</span> <span class="p">{</span>
+  <span class="c1">// A method that returns a number
+</span>  <span class="kd">func</span> <span class="nf">f</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">B</span><span class="p">:</span> <span class="kt">A</span> <span class="p">{</span>
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">f</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">2</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">a</span> <span class="o">=</span> <span class="kt">A</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">b</span> <span class="o">=</span> <span class="kt">B</span><span class="p">()</span>
+
+<span class="n">a</span><span class="o">.</span><span class="nf">f</span><span class="p">()</span> <span class="c1">// =&gt; 1
+</span><span class="n">b</span><span class="o">.</span><span class="nf">f</span><span class="p">()</span> <span class="c1">// =&gt; 2
+</span>
+<span class="c1">// ----------------------------------------------------------------------------
+// Data structures
+</span>
+<span class="c1">// Array literals
+</span><span class="k">let</span> <span class="nv">shoppingList</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Eggs"</span><span class="p">,</span> <span class="s">"Milk"</span><span class="p">]</span>
+
+<span class="c1">// Iteration
+</span><span class="k">for</span> <span class="n">item</span> <span class="k">in</span> <span class="n">shoppingList</span> <span class="p">{</span>
+    <span class="nf">println</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Mapping a function over a collection
+</span><span class="p">(</span><span class="mi">1</span> <span class="o">...</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span> <span class="c1">// Terse inplace function syntax
+</span>
+<span class="c1">// Tuples
+</span><span class="k">let</span> <span class="nv">things</span> <span class="o">=</span> <span class="p">(</span><span class="s">"Some numbers"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nf">println</span><span class="p">(</span><span class="n">things</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
+<span class="nf">println</span><span class="p">(</span><span class="n">things</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">let</span> <span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">third</span><span class="p">,</span> <span class="n">fourth</span><span class="p">)</span> <span class="o">=</span> <span class="n">things</span>
+
+<span class="c1">// Dictionary literals
+</span><span class="k">let</span> <span class="nv">lookup</span> <span class="o">=</span> <span class="p">[</span> <span class="s">"x"</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s">"y"</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s">"z"</span><span class="p">:</span> <span class="mi">26</span> <span class="p">]</span>
+<span class="n">lookup</span><span class="p">[</span><span class="s">"x"</span><span class="p">]</span> <span class="c1">// =&gt; Int? = {Some 24}
+</span><span class="n">lookup</span><span class="p">[</span><span class="s">"n"</span><span class="p">]</span> <span class="c1">// =&gt; Int? = nil
+</span>
+<span class="c1">// ----------------------------------------------------------------------------
+// Generics
+</span>
+<span class="kd">func</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt">U</span><span class="o">&gt;</span><span class="p">(</span><span class="k">var</span> <span class="nv">array</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">],</span> <span class="nv">f</span><span class="p">:(</span><span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">U</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">U</span><span class="p">]</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span> <span class="o">..&lt;</span> <span class="n">array</span><span class="o">.</span><span class="n">count</span> <span class="p">{</span>
+    <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">f</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="c1">// array is a copy so is safe to modify in-place
+</span>  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">array</span>
+<span class="p">}</span>
+</code></pre>
+
+        </div>
+        <div class="code-listing">
+          <h2>Scala</h2>
+          <pre><code class="highlight"><span class="c1">//
+// Scala
+//
+</span>
+<span class="c1">// ----------------------------------------------------------------------------
+// Variables
+</span>
+<span class="c1">// A type inferred variable declaration
+</span><span class="k">var</span> <span class="n">a</span> <span class="k">=</span> <span class="mi">5</span>
+
+<span class="c1">// An explicitly typed variable declaration
+</span><span class="k">var</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1">// A constant
+</span><span class="k">val</span> <span class="n">b</span> <span class="k">=</span> <span class="mi">6</span>
+
+<span class="c1">// An explicitly typed constant declaration
+</span><span class="k">val</span> <span class="n">c</span><span class="k">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">5.0</span>
+
+<span class="c1">// ----------------------------------------------------------------------------
+// Functions
+</span>
+<span class="c1">// A function that takes a value and returns a value
+</span><span class="k">def</span> <span class="n">f</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="o">}</span>
+
+<span class="c1">// Multiple return values
+</span><span class="k">def</span> <span class="n">g</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Unpacking multiple return values
+</span><span class="k">val</span> <span class="o">(</span><span class="n">x1</span><span class="o">,</span> <span class="n">y1</span><span class="o">)</span> <span class="k">=</span> <span class="n">g</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+
+<span class="c1">// A function that returns a function closure
+</span><span class="k">def</span> <span class="n">makeFunc</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=&gt;</span> <span class="nc">Int</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="o">(</span><span class="n">otherValue</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">otherValue</span> <span class="o">+</span> <span class="n">value</span>
+<span class="o">}</span>
+
+<span class="n">makeFunc</span><span class="o">(</span><span class="mi">2</span><span class="o">)(</span><span class="mi">1</span><span class="o">)</span> <span class="c1">// =&gt; 3
+</span>
+
+
+<span class="c1">// Passing a function to a function
+</span><span class="k">def</span> <span class="n">callFunc</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">f</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=&gt;</span> <span class="nc">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">f</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Passing functions in-place
+</span><span class="n">callFunc</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="o">(</span><span class="n">number</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">number</span> <span class="o">+</span> <span class="mi">2</span><span class="o">)</span>
+<span class="n">callFunc</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">number</span> <span class="k">=&gt;</span> <span class="n">number</span> <span class="o">+</span> <span class="mi">2</span><span class="o">)</span>
+<span class="n">callFunc</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="o">{</span> <span class="k">_</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">})</span>
+<span class="n">callFunc</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="k">_</span> <span class="o">+</span> <span class="mi">2</span><span class="o">)</span>
+
+<span class="c1">// Pass a function as a block (need to define receiver differently)
+</span><span class="k">def</span> <span class="n">callBlock</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)(</span><span class="n">f</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=&gt;</span> <span class="nc">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">f</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="n">callBlock</span><span class="o">(</span><span class="mi">1</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="mi">2</span><span class="o">)</span>
+<span class="n">callBlock</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span> <span class="k">_</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">}</span>
+
+<span class="c1">// ----------------------------------------------------------------------------
+// Classes
+</span>
+<span class="k">class</span> <span class="nc">Point</span><span class="o">(</span><span class="k">val</span> <span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="k">val</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+
+<span class="c1">// ^^ that's all you need
+</span>
+
+
+
+
+
+
+<span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="c1">// =&gt; 1
+</span><span class="n">p</span><span class="o">.</span><span class="n">y</span> <span class="c1">// =&gt; 2
+</span>
+<span class="c1">// Inheritance and interface implementation syntax
+</span><span class="k">class</span> <span class="nc">A</span> <span class="o">{</span>
+  <span class="c1">// A method that returns a number
+</span>  <span class="k">def</span> <span class="n">f</span><span class="o">()</span> <span class="k">=</span> <span class="mi">1</span>
+<span class="o">}</span>
+
+
+
+<span class="k">class</span> <span class="nc">B</span> <span class="k">extends</span> <span class="n">A</span> <span class="o">{</span>
+  <span class="k">override</span> <span class="k">def</span> <span class="n">f</span><span class="o">()</span> <span class="k">=</span> <span class="mi">2</span>
+<span class="o">}</span>
+
+
+
+<span class="k">val</span> <span class="n">a</span> <span class="k">=</span> <span class="k">new</span> <span class="n">A</span>
+<span class="k">val</span> <span class="n">b</span> <span class="k">=</span> <span class="k">new</span> <span class="n">B</span>
+
+<span class="n">a</span><span class="o">.</span><span class="n">f</span><span class="o">()</span> <span class="c1">// =&gt; 1
+</span><span class="n">b</span><span class="o">.</span><span class="n">f</span><span class="o">()</span> <span class="c1">// =&gt; 2
+</span>
+<span class="c1">// ----------------------------------------------------------------------------
+// Data structures
+</span>
+<span class="c1">// In Scala Lists are preferred over Arrays (although they are available)
+</span><span class="k">val</span> <span class="n">shoppingList</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="s">"Eggs"</span><span class="o">,</span> <span class="s">"Milk"</span><span class="o">)</span>
+
+<span class="c1">// Iteration
+</span><span class="k">for</span> <span class="o">(</span><span class="n">item</span> <span class="k">&lt;-</span> <span class="n">shoppingList</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">println</span><span class="o">(</span><span class="n">item</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Mapping a function over a collection
+</span><span class="o">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">5</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span> <span class="k">_</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">}</span> <span class="c1">// Terse inplace function syntax
+</span>
+<span class="c1">// Tuples
+</span><span class="k">val</span> <span class="n">things</span> <span class="k">=</span> <span class="o">(</span><span class="s">"Some numbers"</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<span class="n">println</span><span class="o">(</span><span class="n">things</span><span class="o">.</span><span class="n">_1</span><span class="o">)</span>
+<span class="n">println</span><span class="o">(</span><span class="n">things</span><span class="o">.</span><span class="n">_2</span><span class="o">)</span>
+<span class="k">val</span> <span class="o">(</span><span class="n">first</span><span class="o">,</span> <span class="n">second</span><span class="o">,</span> <span class="n">third</span><span class="o">,</span> <span class="n">fourth</span><span class="o">)</span> <span class="k">=</span> <span class="n">things</span>
+
+<span class="c1">// Map literals
+</span><span class="k">val</span> <span class="n">lookup</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">(</span><span class="s">"x"</span> <span class="o">-&gt;</span> <span class="mi">24</span><span class="o">,</span> <span class="s">"y"</span> <span class="o">-&gt;</span> <span class="mi">25</span><span class="o">,</span> <span class="s">"z"</span> <span class="o">-&gt;</span> <span class="mi">26</span><span class="o">)</span>
+<span class="n">lookup</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"x"</span><span class="o">)</span> <span class="c1">// =&gt; Option[Int] = Some(24)
+</span><span class="n">lookup</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="s">"n"</span><span class="o">)</span> <span class="c1">// =&gt; Option[Int] = None
+</span>
+<span class="c1">// ----------------------------------------------------------------------------
+// Generics
+</span>
+<span class="k">def</span> <span class="n">map</span><span class="o">[</span><span class="kt">T</span>, <span class="kt">U</span><span class="o">](</span><span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">T</span><span class="o">],</span> <span class="n">f</span><span class="k">:</span> <span class="kt">T</span> <span class="o">=&gt;</span> <span class="n">U</span><span class="o">)</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">U</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">for</span> <span class="o">(</span><span class="n">v</span> <span class="k">&lt;-</span> <span class="n">list</span><span class="o">)</span> <span class="k">yield</span> <span class="n">f</span><span class="o">(</span><span class="n">v</span><span class="o">)</span>
+<span class="o">}</span>
+
+
+
+
+</code></pre>
+
+        </div>
+      </section>
+    </div>
+
+  </body>
+</html>
