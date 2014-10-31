@@ -4,9 +4,10 @@ require 'erb'
 require 'rack'
 require 'webrick'
 
-SRC_DIR = 'src'
-WEB_DIR = 'public'
-BUILD_DIR = 'build'
+PROJECT_ROOT = File.dirname(__FILE__)
+SRC_DIR = File.join(PROJECT_ROOT, 'src')
+WEB_DIR = File.join(PROJECT_ROOT, 'public')
+BUILD_DIR = File.join(PROJECT_ROOT, 'build')
 
 directory BUILD_DIR
 
@@ -62,6 +63,14 @@ end
 
 desc "Runs dist"
 task :default => :dist
+
+desc "Print out project paths and other info"
+task :info do
+  puts "PROJECT_ROOT: #{PROJECT_ROOT}"
+  puts "SRC_DIR: #{SRC_DIR}"
+  puts "WEB_DIR: #{WEB_DIR}"
+  puts "BUILD_DIR: #{BUILD_DIR}"
+end
 
 CLEAN.include(BUILT_FILES)
 CLOBBER.include(BUILD_DIR)
