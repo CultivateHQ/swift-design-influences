@@ -9,6 +9,8 @@ SRC_DIR = File.join(PROJECT_ROOT, 'src')
 WEB_DIR = File.join(PROJECT_ROOT, 'public')
 BUILD_DIR = File.join(PROJECT_ROOT, 'build')
 
+Rake.load_rakefile(File.join(PROJECT_ROOT, 'gh_pages.rake'))
+
 directory BUILD_DIR
 
 LANG_SRC = FileList["#{SRC_DIR}/*"]
@@ -70,6 +72,7 @@ task :info do
   puts "SRC_DIR: #{SRC_DIR}"
   puts "WEB_DIR: #{WEB_DIR}"
   puts "BUILD_DIR: #{BUILD_DIR}"
+  puts "GH_PAGES_REF: #{GH_PAGES_REF}"
 end
 
 CLEAN.include(BUILT_FILES)
