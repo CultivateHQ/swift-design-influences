@@ -17,13 +17,13 @@ $ bundle install
 Run the local development version:
 
 ```
-$ rake server
+$ bundle exec rake server
 ```
 
 Then visit http://localhost:3000/
 
-Output a static copy of the website to `./build`:
+To publish the site to GitHub Pages:
 
 ```
-$ rake
+$ bundle exec rake publish
 ```
